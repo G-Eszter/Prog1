@@ -5,15 +5,11 @@
 
 using namespace std;
 
-void error(string s)
+void error()
 {
-    throw runtime_error(s);
+   throw runtime_error("error()");
 }
 
-void error(string s1, string s2)
-{
-    throw runtime_error(s1 + s2);
-}
 
 struct Person
 {
@@ -33,7 +29,7 @@ Person::Person(string f, string l, int a)
 	:first{f}, last{l}, age{a}
 {
 	if (a < 0)
-		error("Invalid age");
+		error();
 	string full_name = f + l;
 	for(char c : full_name)
 	{
@@ -43,13 +39,10 @@ Person::Person(string f, string l, int a)
             		case '&': case '^': case '%': case '$': case '#': case '@':
             		case '!':
             		
-            		error("Invalid char");
+            		error();
 			break;
 			default: break;
 		}
-		error("Invalid char");
-		break;
-		
 	}
 
 }
@@ -67,7 +60,7 @@ istream& operator>>(istream& is, Person& p)
 	
 	is >> first >> last >> age;
 	
-	if(!is) error ("Invalid values");
+	if(!is) error ();
 	
 	p = Person(first, last, age);
 	return is;
@@ -76,9 +69,11 @@ istream& operator>>(istream& is, Person& p)
 int main()
 {
 	vector<Person> p_vec;
-	cout << "Enter some names and ages" << endl;
-	for(Person p; cin >> p;)
+	cout << "Enter 5 names and ages" << endl;
+	Person p;
+	for(int i = 0; i< 5; i++)
 	{
+		cin >> p;
 		p_vec.push_back(p);
 	}
 	
